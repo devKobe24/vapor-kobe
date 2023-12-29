@@ -44,4 +44,12 @@ func routes(_ app: Application) throws {
 		}
 		return "\(customerId)"
 	}
+	
+	// /movies
+	app.get("movies") { req async in
+		[Movie(title: "Batman", year: 2023),
+		 Movie(title: "Superman", year: 2022),
+		 Movie(title: "Spiderman", year: 2020)
+		]
+	}
 }
