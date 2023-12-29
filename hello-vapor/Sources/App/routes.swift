@@ -37,4 +37,11 @@ func routes(_ app: Application) throws {
 		}
 		return "All movies of genre: \(genre), for year \(year)"
 	}
+	
+	app.get("customers", ":customerId") { req async throws -> String in
+		guard let customerId = req.parameters.get("customerId", as: Int.self) else {
+			throw Abort(.badRequest)
+		}
+		return "\(customerId)"
+	}
 }
