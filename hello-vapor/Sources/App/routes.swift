@@ -11,6 +11,11 @@ func routes(_ app: Application) throws {
 		"Hello, world!"
 	}
 	
+	// http://127.0.0.1:8080/drama/romantic
+	app.get("drama", "romantic") { req async -> String in
+		"Romantic drama"
+	}
+	
 	// /movies/action
 	// /movies/horror
 	// /movies/kids
