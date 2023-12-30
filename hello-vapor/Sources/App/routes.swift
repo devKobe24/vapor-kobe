@@ -1,5 +1,6 @@
 import Vapor
 
+/*
 func routes(_ app: Application) throws {
 	// http://127.0.0.1:8080
 	app.get { req async in
@@ -64,5 +65,55 @@ func routes(_ app: Application) throws {
 	app.get("hotels") { req async throws in
 		let hotelQuery = try req.query.decode(HotelQuery.self)
 		return hotelQuery
+	}
+}
+*/
+
+// MARK: - Route Groups
+func routes(_ app: Application) throws {
+	// /movies
+	// /movies/12
+	let movies = app.grouped("movies")
+	
+	// /users
+	// /users/premium
+	let users = app.grouped("users")
+	
+	// /movies
+	movies.get { req async -> String in
+		return "Movies"
+	}
+	
+	
+	// /movies/34
+	movies.get(":movieId") { req async throws -> String in
+		guard let movieId = req.parameters.get("movieId") else {
+			throw Abort(.badRequest)
+		}
+		
+		return "MovieId = \(movieId)"
+	}
+	
+	// users/premium
+	users.get("premium") { req async -> String in
+		return "Premium"
+	}
+	
+	let masterpice = app.grouped("masterpice")
+	
+	masterpice.get { req async -> [String: String] in
+		return ["별이 빛나는 밤에": "https://github.com/devKobe24/images/blob/main/vincent.jpeg?raw=true"]
+	}
+	
+	masterpice.get(":title") { req async throws in
+		guard let title = req.parameters.get("title") else {
+			throw Abort(.badRequest)
+		}
+		return [MasterPices(title: title, url: "https://github.com/devKobe24/images/blob/main/vincent.jpeg?raw=true")]
+	}
+	
+	masterpice.post { req async throws in
+		let masterpice = try req.content.decode(MasterPices.self)
+		return masterpice
 	}
 }
