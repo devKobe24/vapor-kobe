@@ -68,7 +68,7 @@ func routes(_ app: Application) throws {
 	}
 }
 */
-
+/*
 // MARK: - Route Groups
 func routes(_ app: Application) throws {
 	// /movies
@@ -116,4 +116,11 @@ func routes(_ app: Application) throws {
 		let masterpice = try req.content.decode(MasterPices.self)
 		return masterpice
 	}
+}
+*/
+
+// MARK: MVC
+func routes(_ app: Application) throws {
+	try app.register(collection: MoviesController())
+	try app.register(collection: PaintsController())
 }
