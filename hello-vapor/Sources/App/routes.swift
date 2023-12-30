@@ -119,8 +119,25 @@ func routes(_ app: Application) throws {
 }
 */
 
+/*
 // MARK: MVC
 func routes(_ app: Application) throws {
 	try app.register(collection: MoviesController())
 	try app.register(collection: PaintsController())
+}
+*/
+
+// MARK: Middleware
+func routes(_ app: Application) throws {
+	app.middleware.use(LogMiddleware())
+	
+	// /
+	app.get { req async in
+		"It works!"
+	}
+	
+	// /hello
+	app.get("hello") { req async -> String in
+		"Hello, world!"
+	}
 }
