@@ -131,6 +131,18 @@ func routes(_ app: Application) throws {
 func routes(_ app: Application) throws {
 	app.middleware.use(LogMiddleware())
 	
+	// /members
+	app.grouped(AuthenticationMiddleware()).group("members") { route in
+		route.get { req async -> String in
+			return "Members Index"
+		}
+		
+		route.get("hello") { req async -> String in
+			return "Member hello"
+		}
+	}
+	
+	
 	// /
 	app.get { req async in
 		"It works!"
