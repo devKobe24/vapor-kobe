@@ -52,4 +52,10 @@ func routes(_ app: Application) throws {
 		 Movie(title: "Spiderman", year: 2020)
 		]
 	}
+	
+	// MARK: POST Route
+	app.post("movies") { req async throws in
+		let movie = try req.content.decode(Movie.self)
+		return movie
+	}
 }
