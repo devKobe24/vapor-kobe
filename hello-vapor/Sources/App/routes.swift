@@ -58,4 +58,11 @@ func routes(_ app: Application) throws {
 		let movie = try req.content.decode(Movie.self)
 		return movie
 	}
+	
+	// MARK: Query Strings
+	// /hotels?sort=desc&search=houston
+	app.get("hotels") { req async throws in
+		let hotelQuery = try req.query.decode(HotelQuery.self)
+		return hotelQuery
+	}
 }
